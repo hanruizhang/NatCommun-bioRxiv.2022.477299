@@ -1,0 +1,211 @@
+---
+title: "spacer_script"
+author: "Jianting Shi"
+date: "01/19/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+setwd("~/1.Screen_RawCounts")
+```
+
+# Screen 1
+```{r}
+library <- read.csv('[ORIGINAL]broadgpp-brie-library-controls.csv')
+BS01_S1 <- read.csv("./non-targeting-v2/BS01_S1.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, BS01S1 = V2)
+BS02_S1 <- read.csv("./non-targeting-v2/BS02_S1.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, BS02S1 = V2)
+BS03_S1 <- read.csv("./non-targeting-v2/BS03_S1.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, BS03S1 = V2)
+
+
+S1_BS <- inner_join(BS01_S1, BS02_S1, by = "sgRNA") %>% inner_join(BS03_S1,  by = "sgRNA") %>% 
+  mutate(S1_BS = BS01S1 + BS02S1 + BS03S1) %>% dplyr::select(sgRNA, S1_BS)
+```
+
+```{r}
+P501_S1 <- read.csv("./non-targeting-v2/P501_S1.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, P501S1 = V2)
+P502_S1 <- read.csv("./non-targeting-v2/P502_S1.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, P502S1 = V2)
+P503_S1 <- read.csv("./non-targeting-v2/P503_S1.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, P503S1 = V2)
+P504_S1 <- read.csv("./non-targeting-v2/P504_S1.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, P504S1 = V2)
+
+S1_P5 <- inner_join(P501_S1, P502_S1, by = "sgRNA") %>% inner_join(P503_S1,  by = "sgRNA") %>% 
+  inner_join(P504_S1,  by = "sgRNA")%>% 
+  mutate(S1_P5 = P501S1+ P503S1 + P503S1+ P504S1) %>% dplyr::select(sgRNA, S1_P5)
+```
+
+```{r}
+S1_Q2 <- read.csv("./non-targeting-v2/Q2_S1.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, S1_Q2 = V2)
+```
+
+# Screen 2
+```{r}
+BS01_S2 <- read.csv("./non-targeting-v2/BS01_S2.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, BS01S2 = V2)
+BS02_S2 <- read.csv("./non-targeting-v2/BS02_S2.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, BS02S2 = V2)
+BS03_S2 <- read.csv("./non-targeting-v2/BS03_S2.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, BS03S2 = V2)
+BS04_S2 <- read.csv("./non-targeting-v2/BS04_S2.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, BS04S2 = V2)
+
+S2_BS <- inner_join(BS01_S2, BS02_S2, by = "sgRNA") %>% inner_join(BS03_S2,  by = "sgRNA") %>% 
+  inner_join(BS04_S2,  by = "sgRNA")%>% 
+  mutate(S2_BS = BS01S2+ BS03S2 + BS03S2+ BS04S2) %>% dplyr::select(sgRNA, S2_BS)
+```
+
+```{r}
+P501_S2 <- read.csv("./non-targeting-v2/P501_S2.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, P501S2 = V2)
+P502_S2 <- read.csv("./non-targeting-v2/P502_S2.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, P502S2 = V2)
+P503_S2 <- read.csv("./non-targeting-v2/P503_S2.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, P503S2 = V2)
+
+
+S2_P5 <- inner_join(P501_S2, P502_S2, by = "sgRNA") %>% inner_join(P503_S2,  by = "sgRNA") %>% 
+  mutate(S2_P5 = P501S2+ P503S2 + P503S2) %>% dplyr::select(sgRNA, S2_P5)
+
+S2_Q2 <- read.csv("./non-targeting-v2/Q2_S2.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, S2_Q2 = V2)
+
+```
+
+# Screen 3
+```{r}
+BS01_S3 <- read.csv("./non-targeting-v2/BS01_S3.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, BS01S3 = V2)
+BS02_S3 <- read.csv("./non-targeting-v2/BS02_S3.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, BS02S3 = V2)
+BS03_S3 <- read.csv("./non-targeting-v2/BS03_S3.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, BS03S3 = V2)
+
+S3_BS <- inner_join(BS01_S3, BS02_S3, by = "sgRNA") %>% inner_join(BS03_S3,  by = "sgRNA") %>% 
+  mutate(S3_BS = BS01S3+ BS02S3 + BS03S3) %>% dplyr::select(sgRNA, S3_BS)
+```
+
+```{r}
+P501_S3 <- read.csv("./non-targeting-v2/P501_S3.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, P501S3 = V2)
+P503_S3 <- read.csv("./non-targeting-v2/P503_S3.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, P503S3 = V2)
+P504_S3 <- read.csv("./non-targeting-v2/P504_S3.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, P504S3 = V2)
+
+S3_P5 <- inner_join(P501_S3, P503_S3, by = "sgRNA") %>% inner_join(P504_S3,  by = "sgRNA") %>% 
+  mutate(S3_P5 = P501S3+ P503S3 + P504S3) %>% dplyr::select(sgRNA, S3_P5)
+
+S3_Q2 <- read.csv("./non-targeting-v2/Q2_S3.csv", header = FALSE) %>% 
+  rename(sgRNA = V1, S3_Q2 = V2)
+```
+
+
+
+# Merging
+```{r}
+non_targeting <- inner_join(S1_BS, S1_P5, by = "sgRNA") %>% inner_join(S1_Q2,by = "sgRNA") %>% 
+  inner_join(S2_BS,by = "sgRNA") %>% inner_join(S2_P5,by = "sgRNA") %>% inner_join(S2_Q2,by = "sgRNA")%>%
+  inner_join(S3_BS,by = "sgRNA") %>% inner_join(S3_P5,by = "sgRNA") %>% inner_join(S3_Q2,by = "sgRNA")%>%
+  inner_join(library, by = "sgRNA") %>% select(ID, sgRNA, Name, everything())
+
+#write.csv(data, "non_tar_spacer_counts.csv", quote = FALSE, row.names = FALSE, col.names = TRUE)
+```
+
+
+### Compare (update 2022.01.13)
+```{r}
+library(tidyverse)
+library(preprocessCore)
+# quantile normalization
+targeting = 
+  read.delim("./Screen_1to3_dedup_merged_filt_by_5pct_comb_Amp_filt_contamination_RAW.txt") %>%
+  janitor::clean_names() %>%
+  mutate(q2 = (s1_q2 + s3_q2)/2, p5 = (s1_p5 + s3_p5)/2, bs = (s1_bs + s3_bs)/2) 
+
+targeting_matrix = 
+  targeting %>%
+  select(q2, p5, bs) %>%
+  data.matrix() %>%
+  normalize.quantiles() 
+
+targeting_matrix = cbind(targeting_matrix, "observation"=1:nrow(targeting_matrix))
+targeting = cbind(targeting, "observation" = 1:nrow(targeting))
+targeting_df = 
+  merge(targeting, targeting_matrix, by = "observation") %>%
+  rename(nor_q2 = V1, nor_p5 = V2, nor_bs = V3) %>%
+  select(sg_rna, gene_symbol,nor_q2, nor_p5, nor_bs) %>%
+  mutate(bs = log2(nor_bs), p5 = log2(nor_p5), q2 = log2(nor_q2))
+
+
+                
+# %>% mutate(non_tar = FALSE)
+# add non-targeting file
+non_targeting = 
+  read_csv("non_tar_spacer_counts.csv") %>% 
+  janitor::clean_names() %>%
+  mutate(q2 = (s1_q2 + s3_q2)/2, p5 = (s1_p5 + s3_p5)/2, bs = (s1_bs + s3_bs)/2)
+
+nontar_matrix = 
+  non_targeting %>%
+  select(q2, p5, bs) %>%
+  data.matrix() %>%
+  normalize.quantiles() 
+
+nontar_matrix = cbind(nontar_matrix, "observation"=1:nrow(nontar_matrix))
+non_targeting = cbind(non_targeting, "observation" = 1:nrow(non_targeting))
+nontar_df = 
+  merge(non_targeting, nontar_matrix, by = "observation") %>%
+  rename(nor_q2 = V1, nor_p5 = V2, nor_bs = V3) %>%
+  select(sg_rna, nor_q2, nor_p5, nor_bs) %>%
+  mutate(bs = log2(nor_bs), p5 = log2(nor_p5), q2 = log2(nor_q2))
+
+```
+
+
+```{r}
+# Plotting
+# using raw counts extracted by count_spacers_v2.py
+
+pos_ctrl <- targeting_df %>% filter(gene_symbol %in% c("Nckap1l", "Arpc4", "Wdfy3")) 
+
+# log2(P5) VS log2(Q2) 
+
+cloud_plot = 
+  ggplot() +
+  geom_point(aes(x = q2,
+                 y = p5),
+                 data = targeting_df, colour = "grey", alpha = 0.3, size = 0.3) +
+  geom_point(aes(x = q2, 
+                y = p5), 
+                 data = nontar_df, colour = "black", alpha = 1, size = 0.3) +
+  geom_point(aes(x = q2, 
+                 y = p5, colour = gene_symbol), 
+             data = pos_ctrl, size = 2.2) +
+  scale_x_continuous(limits = c(0, 15))+
+  scale_y_continuous(limits = c(0, 15))+
+  #geom_abline(slope = 1, intercept = 0)+
+  labs(x = "log2(counts of efficient eaters)",
+       y = "log2(counts of non-eaters)") + 
+  #labs(fill = "Gene") + 
+  scale_colour_discrete(name = "", breaks = c("Arpc4", "Nckap1l", "Wdfy3"), labels = c("Arpc4 gRNA", "Nckap1l gRNA", "Wdfy3 gRNA")) +
+  #scale_colour_manual(nontar_df, name = "", values = "black", labels = "non-targeting") +
+  theme_classic() + 
+  theme(
+    legend.title = element_text(size=15),
+    legend.text = element_text(size=15),
+    axis.text=element_text(size=20),
+    axis.title=element_text(size=20,face="bold"))
+
+cloud_plot 
+
+ggsave(cloud_plot, filename = paste0("Non-targeting_cloud-plot_20220115.png"), scale = 1, width = 18, height = 12, dpi = 300, units = "cm")
+
+```
