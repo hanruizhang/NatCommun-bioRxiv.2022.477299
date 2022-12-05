@@ -1,0 +1,28 @@
+---
+title: "List of sgRNA contaminated by plasmid"
+output: html_document
+date: "2022-12-04"
+---
+
+```{r setup, include=FALSE}
+
+library(arsenal)
+
+# input the final data used for MAGeck analysis
+input_6 ="input/Screen_1to3_dedup_merged_filt_by_5pct_comb_Amp_filt_contamination_RAW.txt"
+dat_6 = read.table(input_6, sep = "\t", header = T)
+
+# subset the sgRNA and gene symbol columns to compare
+df_dat_6 = 
+  dat_6[, 1:3] 
+arrange(df_dat_6)
+df_dat_1 = dat_1[, 1:3]
+arrange(df_dat_1)
+
+# compare the 
+comparedf(df_dat_6, df_dat_1)
+
+#create gene list not shared in non-filtered dataset
+subset(df_dat_1,!(sgRNA%in%df_dat_6$sgRNA))
+```
+
